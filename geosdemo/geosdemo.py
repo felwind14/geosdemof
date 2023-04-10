@@ -4,7 +4,7 @@ import string
 import random
 
 #Created on youtube lesson week 10
-def generate_random_string(length, upper= False, digits = False, punctuation= False):
+def generate_random_string(length= 10, upper= False, digits = False, punctuation= False):
     
     letters = string.ascii_lowercase
     if upper:
