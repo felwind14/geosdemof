@@ -17,3 +17,7 @@ def generate_random_string(length= 10, upper= False, digits = False, punctuation
     letters = string.ascii_lowercase + string.ascii_uppercase + string.digits + string.punctuation
     result_str = ''.join(random.choice(letters) for i in range(length))
     return result_str
+
+def generate_lucky_number(length= 1):
+    result_str = ''.join(random.choice(string.digits) for i in range(length))
+    return int(result_str)
