@@ -48,6 +48,9 @@ nav:
     - FAQ: faq.md
     - Changelog: changelog.md
     - Report Issues: https://github.com/giswqs/geosdemo/issues
+    - Examples: 
+          - examples/intro.ipybn
+          - examples/folium.ipybn
     - API Reference:
           - geosdemo module: geosdemo.md
     - Python Basics:
