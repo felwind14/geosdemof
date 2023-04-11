@@ -2,6 +2,35 @@
 
 import string 
 import random
+import ipyleaflet
+
+class Map (ipyleaflet.Map):   #we are going to build based on this
+     
+    def __init__(self, center, zoom, **kwargs) -> None:  #needs to be passed back to the ipyleafclass this is why we put center and zoom in __init__
+        
+        if "scroll_wheel_zoom" not in kwargs:
+            kwargs["scroll_wheel_zoom"] = True   
+            
+        print(f"this is what the user is providing:{kwargs}") #prints what the user provides       
+        super().__init__(center=center, zoom=zoom, **kwargs)      #super means upper label, the class you inherit from. This passes the parameters to geosdemo.py 
+    
+    def add_search_control(self, position="topleft", **kwargs):  #based on control  example
+        """_summary_
+
+        Returns:
+            _type_: _description_
+        """  
+        if "url" not in kwargs:
+            kwargs["url"] = "https://nominatim.openstreetmap.org/search?format=json&q={s}"
+
+        
+        search_control = ipyleaflet.SearchControl(position= position, **kwargs) #based on example in https://ipyleaflet.readthedocs.io/en/latest/controls/search_control.html
+        
+        print(f"this is what the user is providing:{kwargs}") 
+        self.add_control(search_control)   
+
+    
+
 
 #Created on youtube lesson week 10
 def generate_random_string(length= 10, upper= False, digits = False, punctuation= False):
