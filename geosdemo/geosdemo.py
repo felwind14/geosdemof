@@ -31,10 +31,7 @@ class Map (ipyleaflet.Map):   #we are going to build based on this
 
     def add_draw_control(self, **kwargs):  #based on control  example
         """_summary_
-
-        Returns:
-            _type_: _description_
-        """  
+        """       
         draw_control = ipyleaflet.DrawControl(**kwargs) 
 
         #customizing the draw control
