@@ -6,14 +6,29 @@ import ipyleaflet
 
 class Map (ipyleaflet.Map):   #we are going to build based on this
      
-    def __init__(self, center, zoom, **kwargs) -> None:  #needs to be passed back to the ipyleafclass this is why we put center and zoom in __init__
+    def __init__(self, center= [20, 0], zoom= 2, **kwargs) -> None:  #needs to be passed back to the ipyleafclass this is why we put center and zoom in __init__
         
         if "scroll_wheel_zoom" not in kwargs:
             kwargs["scroll_wheel_zoom"] = True   
             
         print(f"this is what the user is providing:{kwargs}") #prints what the user provides       
         super().__init__(center=center, zoom=zoom, **kwargs)      #super means upper label, the class you inherit from. This passes the parameters to geosdemo.py 
-    
+        print(kwargs)  #AGAIN FOR DEBUGGING
+
+        #11a - adding the layers control as default
+        if "layers_control" not in kwargs:
+            kwargs["layers_control"] = True
+        print(kwargs) #aGAIN FOR DEBUGGING
+        if kwargs["layers_control"]:
+            self.add_layers_control()
+
+        if "fullscreen_control" not in kwargs:
+            kwargs["fullscreen_control"] = True
+
+        if kwargs["fullscreen_control"]:
+            self.add_fullscreen_control()
+        print(kwargs)
+
     def add_search_control(self, position="topleft", **kwargs):  #based on control  example
         """_summary_
 
@@ -71,6 +86,78 @@ class Map (ipyleaflet.Map):   #we are going to build based on this
        
         
         self.add_control(draw_control)
+    
+    def add_layers_control(self, position='topright'):
+        """_summary_
+
+        Args:
+            position (str, optional): _description_. Defaults to 'topright'.
+        """       
+        layers_control = ipyleaflet.LayersControl(position=position)
+        self.add_control(layers_control)
+
+    def add_fullscreen_control(self, position="topleft"):
+        """Adds a fullscreen control to the map.
+
+        Args:
+            kwargs: Keyword arguments to pass to the fullscreen control.
+        """
+        fullscreen_control = ipyleaflet.FullScreenControl(position=position)
+        self.add_control(fullscreen_control)
+
+    #adding a tile layer
+    def add_tile_layer(self, url, name, attribution="", **kwargs):
+        """Adds a tile layer to the map.
+
+        Args:
+            url (str): The URL of the tile layer.
+            name (str): The name of the tile layer.
+            attribution (str, optional): The attribution of the tile layer. Defaults to "".
+        """
+        tile_layer = ipyleaflet.TileLayer(
+            url=url,
+            name=name,
+            attribution=attribution,
+            **kwargs
+        )
+        self.add_layer(tile_layer)
+
+    #adding basemap
+    def add_basemap(self, basemap, **kwargs):
+
+        import xyzservices.providers as xyz  #if a user wants another map is going tolook in xyz
+
+        if basemap.lower() == "roadmap":  #the user can insert any form
+            url = 'http://mt0.google.com/vt/lyrs=m&hl=en&x={x}&y={y}&z={z}'
+            self.add_tile_layer(url, name=basemap, **kwargs)  #name= basemap guarantess that gets the value of the selected 
+        elif basemap.lower() == "satellite":
+            url = 'http://mt0.google.com/vt/lyrs=y&hl=en&x={x}&y={y}&z={z}'
+            self.add_tile_layer(url, name=basemap, **kwargs)
+        else:
+            try:
+                basemap = eval(f"xyz.{basemap}") 
+                url = basemap.build_url()
+                attribution = basemap.attribution
+                self.add_tile_layer(url, name=basemap.name, attribution=attribution, **kwargs)
+            except:
+                raise ValueError(f"Basemap '{basemap}' not found.")
+            
+        #adding vector data 
+
+    def add_geojson(self, data, name='GeoJSON', **kwargs):
+        """Adds a GeoJSON layer to the map.
+
+        Args:
+            data (dict): The GeoJSON data.
+        """
+
+        if isinstance(data, str): #isinstance figures out the data type this allows to just read the data without worrying about how to load the geojson
+            import json
+            with open(data, "r") as f:
+                data = json.load(f)
+
+        geojson = ipyleaflet.GeoJSON(data=data,name=name, **kwargs)
+        self.add_layer(geojson)
 
 
 #Created on youtube lesson week 10
@@ -79,7 +166,7 @@ def generate_random_string(length= 10, upper= False, digits = False, punctuation
 
     Args:
         length (int, optional): Length of the string. Defaults to 10.
-        upper (bool, optional): Wheater to include uppercase. Defaults to False.
+        upper (bool, optional): Whether to include uppercase. Defaults to False.
         digits (bool, optional): _description_. Defaults to False.
         punctuation (bool, optional): _description_. Defaults to False.
 
