@@ -158,6 +158,19 @@ class Map (ipyleaflet.Map):   #we are going to build based on this
 
         geojson = ipyleaflet.GeoJSON(data=data,name=name, **kwargs)
         self.add_layer(geojson)
+    
+    #we neeed to add geopandas
+
+    def add_shp(self, data, name='Shapefile', **kwargs):
+        """Adds a Shapefile layer to the map.
+
+        Args:
+            data (str): The path to the Shapefile.
+        """
+        import geopandas as gpd
+        gdf = gpd.read_file(data)
+        geojson = gdf.__geo_interface__  #___geointerface___ if we use .tojson we would need to convet it back, thidsconverts to dictionary directly
+        self.add_geojson(geojson, name=name, **kwargs)    
 
 
 #Created on youtube lesson week 10
