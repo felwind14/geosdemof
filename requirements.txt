@@ -3,4 +3,3 @@ ipyleaflet
 leafmap
 geopandas
 httpx
-localtileserver
