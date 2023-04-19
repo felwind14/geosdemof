@@ -208,6 +208,14 @@ class Map (ipyleaflet.Map):   #we are going to build based on this
             bbox = [[bounds[1], bounds[0]], [bounds[3], bounds[2]]]
             self.fit_bounds(bbox)
 
+    def add_local_raster(self, filename, name="Local raster", **kwargs):
+
+        try:
+            import localtileserver
+        except ImportError:
+            raise ImportError("loacltileserver not installed. Please install it with pip install ")
+
+
 
 #Created on youtube lesson week 10
 def generate_random_string(length= 10, upper= False, digits = False, punctuation= False):
