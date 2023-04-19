@@ -173,7 +173,7 @@ class Map (ipyleaflet.Map):   #we are going to build based on this
         self.add_geojson(geojson, name=name, **kwargs)    
 
     def add_raster(self, url, name='Raster', fit_bounds=True, **kwargs):  #Week 12 adding the url using titiler
-        """Adds a raster layer to the map.
+        """Adds a raster layer to the map.                       #fit_bounds assigned as True as default
 
         Args:
             url (str): The URL of the raster layer.
