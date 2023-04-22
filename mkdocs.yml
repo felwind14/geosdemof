@@ -50,6 +50,7 @@ nav:
     - Report Issues: https://github.com/giswqs/geosdemo/issues
     - Examples: 
           - examples/intro.ipynb
+          - examples/foliumap.ipynb
           - examples/geosdemo.ipynb
           - examples/folium.ipynb
           - examples/ipyleafleat.ipynb
