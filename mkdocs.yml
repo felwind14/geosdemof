@@ -52,7 +52,6 @@ nav:
           - examples/intro.ipynb
           - examples/foliumap.ipynb
           - examples/geosdemo.ipynb
-          - examples/foliumap.ipynb
           - examples/ipyleafleat.ipynb
     - API Reference:
           - geosdemo module: geosdemo.md
