@@ -3,6 +3,7 @@
 import string 
 import random
 import ipyleaflet
+import ipywidgets as widgets
 
 class Map (ipyleaflet.Map):   #we are going to build based on this
      
@@ -207,6 +208,74 @@ class Map (ipyleaflet.Map):   #we are going to build based on this
         if fit_bounds:
             bbox = [[bounds[1], bounds[0]], [bounds[3], bounds[2]]]
             self.fit_bounds(bbox)
+
+    #homework make some modifications to add the functionalities of the widgets
+    #copying material from toolbar.ipynb
+    def add_toolbar(self, position="topright"):
+        widget_width = "250px" #setting the widget width 
+        padding = "0px 0px 0px 5px"  # upper, right, bottom, left
+
+        #creating the tolbar button
+        toolbar_button = widgets.ToggleButton(
+            value=False,
+            tooltip="Toolbar", #user hover an displays text
+            icon="wrench", #https://fontawesome.com/v4/icons/
+            layout=widgets.Layout(width="28px", height="28px", padding=padding),
+        )
+
+        #creating the close button
+        close_button = widgets.ToggleButton(
+            value=False,
+            tooltip="Close the tool",
+            icon="times",
+            button_style="primary",
+            layout=widgets.Layout(height="28px", width="28px", padding=padding),  
+        )
+        
+        toolbar = widgets.HBox([toolbar_button])
+
+        def toolbar_click(change):
+            if change["new"]:
+                toolbar.children = [toolbar_button, close_button]
+            else:
+                toolbar.children = [toolbar_button]
+                
+        toolbar_button.observe(toolbar_click, "value") #when is clicked we are going to observe the close button
+                                            #value is used in most of the time and means when we click is true and nclick is false
+
+        def close_click(change):
+            if change["new"]:
+                toolbar_button.close()
+                close_button.close()
+                toolbar.close()
+                
+        close_button.observe(close_click, "value")
+
+        rows = 2
+        cols = 2
+        grid = widgets.GridspecLayout(rows, cols, grid_gap="0px", layout=widgets.Layout(width="62px"))
+
+        icons = ["folder-open", "map", "info", "question"] #names taken from the link above
+
+        for i in range(rows):
+            for j in range(cols):
+                grid[i, j] = widgets.Button(description="", button_style="primary", icon=icons[i*rows+j], 
+                                            layout=widgets.Layout(width="28px", padding="0px"))
+                
+        toolbar = widgets.VBox([toolbar_button])
+
+        def toolbar_click(change):
+            if change["new"]: #means once is clicked
+                toolbar.children = [widgets.HBox([close_button, toolbar_button]), grid]
+            else:
+                toolbar.children = [toolbar_button]
+                
+        toolbar_button.observe(toolbar_click, "value")
+
+        #toolbar_ctrl = ipyleaflet.WidgetControl(widget=toolbar, position="topright")  #here we need to addipyleaflet
+        toolbar_ctrl = ipyleaflet.WidgetControl(widget=toolbar, position=position) #to add flexibility and avoid hard coding of the position
+        self.add_control(toolbar_ctrl) #self instead of m in the notebook
+
 
     # def add_local_raster(self, filename, name="Local raster", **kwargs):
 
