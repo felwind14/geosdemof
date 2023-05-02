@@ -19,7 +19,7 @@ class Map (ipyleaflet.Map):   #we are going to build based on this
         #11a - adding the layers control as default
         if "layers_control" not in kwargs:
             kwargs["layers_control"] = True
-        print(kwargs) #AGAIN LINE FOR DEBUGGING or CHECK things are going well
+        print(kwargs) #AGAIN LINE FOR DEBUGGING or Checking things are going well
         if kwargs["layers_control"]:
             self.add_layers_control()
 
