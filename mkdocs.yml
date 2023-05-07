@@ -1,8 +1,8 @@
-site_name: geosdemo
+site_name: geosdemof
 
-site_url: https://geosdemo.gishub.org
+site_url: https://felwind14.github.io/geosdemof/
 
-repo_url: https://github.com/giswqs/geosdemo
+repo_url: https://github.com/felwind14/geosdemof
 
 theme:
     palette:
@@ -48,14 +48,6 @@ nav:
     - FAQ: faq.md
     - Changelog: changelog.md
     - Report Issues: https://github.com/giswqs/geosdemo/issues
-    - Examples: 
-          - examples/intro.ipynb
-          - examples/foliumap.ipynb
-          - examples/geosdemo.ipynb
-          - examples/ipyleafleat.ipynb
-    - API Reference:
-          - geosdemo module: geosdemo.md
-          - foliumap module: foliumap.md
     - Python Basics:
           - python/01_getting_started.ipynb
           - python/02_variables_data_types.ipynb
@@ -67,6 +59,22 @@ nav:
           - python/08_functions.ipynb
           - python/09_classes.ipynb
           - python/10_files_and_exceptions.ipynb
+    - Examples: 
+          - examples/intro.ipynb
+          - examples/foliumap.ipynb
+          - examples/geosdemo.ipynb
+          - examples/ipyleafleat.ipynb
+          - examples/raster.ipynb
+          - examples/ipywidgets.ipynb
+          - examples/ipywidgets_box.ipynb
+          - examples/ipywidgets_events.ipynb
+          - examples/toolbar.ipynb
+          - examples/test_addtoolbar_func.ipynb
+          - examples/Working_with_CloudOptimizedGeoTIFF_simple.ipynb
+    - API Reference:
+          - geosdemo module: geosdemo.md
+          - foliumap module: foliumap.md
+    
     - Assignments:
           - labs/lab4.ipynb
           - labs/lab5.ipynb
