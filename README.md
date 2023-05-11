@@ -6,7 +6,7 @@
 **A python package for interactive mapping.**
 
 -   Free software: MIT license
--   Documentation: https://geosdemo.gishub.org
+-   Documentation: https://felwind14.github.io/geosdemof/
 
 ## Features
 
